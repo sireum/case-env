@@ -16,4 +16,6 @@ jobs:
       run: VBoxManage --version
 
     - name: Build VM
-      run: bash setup.sh
+      run: |
+        bash setup.sh
+        vagrant halt
