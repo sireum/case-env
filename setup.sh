@@ -1,5 +1,8 @@
 #!/bin/bash -ex
 vagrant destroy
+if [ command -v git &> /dev/null ]; then
+  git log -n 1 --date=format:%Y%m%d --pretty=format:%cd.%h > vm-version.txt 2> /dev/null || true
+fi
 export FIRST_RUN='true'
 vagrant up --no-provision
 vagrant ssh -c 'bash /vagrant/snapshot.sh'
