@@ -14,4 +14,6 @@ vagrant ssh -c 'sudo DEBIAN_FRONTEND=noninteractive apt install -y build-essenti
 vagrant halt
 export FIRST_RUN='false'
 vagrant up
-vagrant reload
+set -ex
+vagrant halt
+vagrant up
