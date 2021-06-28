@@ -1,8 +1,8 @@
-vagrant destroy
 where git >nul 2>nul
 IF ERRORLEVEL 0 (
   git log -n 1 --date=format:%Y%m%d --pretty=format:%cd.%h > vm-version.txt 2> nul
 )
+vagrant destroy
 set FIRST_RUN=true
 vagrant up --no-provision
 vagrant ssh -c 'bash /vagrant/snapshot.sh'

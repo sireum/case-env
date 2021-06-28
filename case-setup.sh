@@ -1,11 +1,18 @@
 #!/bin/bash
-# Requirement: Debian 10.2 (buster)
+# Requirement: Debian 10.4 (buster)
 
 set -Eeuxo pipefail
 
 : "${BASE_DIR:=$HOME/CASE}"
-: "${SIREUM_INIT_V:=20210615.1954}"
-: "${SIREUM_V:=0edac3ab200af7c5d05bc033e6c9d7a17683dced}"
+: "${SIREUM_INIT_V:=20210628.1601}"
+: "${SIREUM_V:=345fad70ee93e55a5b34031f7eada88cea45cd1e}"
+: "${AGREE_V=agree_2.7.0}"
+: "${BRIEFCASE_V=briefcase_0.5.1}"
+: "${ECLIPSE_V=2020-06}"
+: "${HAMR_V=CASE-Tool-Assessment-4}"
+: "${OSATE_V=2.9.0-vfinal}"
+: "${RESOLUTE_V=resolute_2.7.1}"
+: "${FMIDE_V=latest}" # or fixed
 
 export DEBIAN_FRONTEND=noninteractive
 export SIREUM_HOME=$BASE_DIR/Sireum
@@ -69,7 +76,8 @@ echo "export PATH=\$PATH:\$JAVA_HOME/bin:\$SIREUM_HOME/bin" >> "$HOME/.bashrc"
 
 
 # FMIDE
-bash $HOME/bin/fmide.sh
+bash $SIREUM_HOME/bin/install/fmide.cmd --agree $AGREE_V --briefcase $BRIEFCASE_V --eclipse $ECLIPSE_V --hamr $HAMR_V --osate $OSATE_V --resolute $RESOLUTE_V $FMIDE_V
+echo "export PATH=\$PATH:\${SIREUM_HOME}/bin/linux/fmide" >> "$HOME/.bashrc"
 
 
 # HAMR Examples

@@ -1,5 +1,7 @@
 # CASE Environment Setup
 
+[![Actions Status](https://github.com/sireum/case-env/workflows/CI/badge.svg)](https://github.com/sireum/case-env/actions/workflows/CI.yml)
+
 This folder contains scripts and Vagrantfile to setup environment for CASE tools, either:
 
 * [in a dedicated Linux machine](#setting-up-a-dedicated-linux-machine), or
@@ -14,16 +16,18 @@ In the Vagrant provisioned VM, additional tools and scripts are installed in ``~
 fmide&
 ```
 
-The above will launch ``fmide`` installed in ``~/CASE/FMIDE``.
+The above will launch ``fmide`` installed in ``~/CASE/Sireum/bin/linux/fmide``.
 
 :warning: | The CASE env setup scripts freeze all Linux packages to a certain time/snapshot (as part of seL4 dependency requirements); thus, any OS security update after the freeze time/snapshot will not be installed (see `SNAPSHOT_DATE` in [snapshot.sh](snapshot.sh)).
 :---: | :---
+
+If you are interested to also setup FMIDE and HAMR directly in your machine running either Windows, Linux, or macOS, please see the instructions at [the bottom of this page](#setting-up-fmide-and-hamr-only).
 
 ## Setting Up A Dedicated Linux Machine
 
 ### Requirement
 
-* Debian 10.2 [[.iso]](https://cdimage.debian.org/mirror/cdimage/archive/10.2.0/amd64/iso-cd/debian-10.2.0-amd64-xfce-CD-1.iso)]
+* Debian 10.4 [[.jigdo](https://cdimage.debian.org/mirror/cdimage/archive/10.4.0/amd64/jigdo-cd/debian-10.4.0-amd64-xfce-CD-1.jigdo)]
 
 ### Steps
 
@@ -94,7 +98,7 @@ See [Post Setup](#post-setup) below for additional instructions.
 * To update FMIDE, simply (re-)run the following in the VM:
 
   ```bash
-  $HOME/bin/fmide.sh
+  $SIREUM_HOME/bin/install/fmide.cmd ( fixed | latest )
   ```
 
 * To update Sireum:
@@ -151,4 +155,42 @@ See [Post Setup](#post-setup) below for additional instructions.
 
   ```bash
   $SIREUM_HOME/bin/install/compcert.cmd
+  ```
+
+## Setting Up FMIDE and HAMR Only
+
+* Windows:
+
+  ```batch
+  git clone https://github.com/sireum/kekinian Sireum
+  cd Sireum
+  git checkout <commit> & REM^; SHA commit of https://github.com/sireum/kekinian, see SIREUM_V in case-setup.sh; optional step
+  git submodule update --init --recursive
+  bin\build.cmd setup
+  bin\install\fmide.cmd latest
+  start /B bin\win\fmide\fmide.exe
+  ```
+
+* Linux:
+
+  ```bash
+  git clone https://github.com/sireum/kekinian Sireum
+  cd Sireum
+  git checkout <commit> # SHA commit of https://github.com/sireum/kekinian, see SIREUM_V in case-setup.sh; optional step
+  git submodule update --init --recursive
+  bin/build.cmd setup
+  bin/install/fmide.cmd latest
+  bin/linux/fmide/fmide&
+  ```
+
+* macOS:
+
+  ```bash
+  git clone https://github.com/sireum/kekinian Sireum
+  cd Sireum
+  git checkout <commit> # SHA commit of https://github.com/sireum/kekinian, see SIREUM_V in case-setup.sh; optional step
+  git submodule update --init --recursive
+  bin/build.cmd setup
+  bin/install/fmide.cmd latest
+  open bin/mac/fmide.app
   ```
