@@ -1,0 +1,19 @@
+name: CI
+
+on: [push]
+
+jobs:
+  setup:
+    runs-on: macos-10.15
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Show Vagrant version
+      run: vagrant --version
+
+    - name: Show VirtualBox version
+      run: VBoxManage --version
+
+    - name: Build VM
+      run: bash setup.sh
