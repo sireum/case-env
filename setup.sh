@@ -1,10 +1,10 @@
 #!/bin/bash
-set -x
+set -ex
 if command -v git &> /dev/null
 then
   git log -n 1 --date=format:%Y%m%d --pretty=format:%cd.%h > vm-version.txt 2> /dev/null || true
 fi
-vagrant destroy
+vagrant destroy || true
 export FIRST_RUN='true'
 vagrant up --no-provision
 vagrant ssh -c 'bash /vagrant/snapshot.sh'
@@ -13,7 +13,6 @@ vagrant ssh -c 'sudo DEBIAN_FRONTEND=noninteractive apt upgrade -y'
 vagrant ssh -c 'sudo DEBIAN_FRONTEND=noninteractive apt install -y build-essential linux-headers-amd64 linux-image-amd64 python-pip'
 vagrant halt
 export FIRST_RUN='false'
-vagrant up
-set -ex
-vagrant halt
-vagrant up
+vagrant up || true
+vagrant reload
+vagrant reload

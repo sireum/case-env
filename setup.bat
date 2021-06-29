@@ -4,13 +4,16 @@ IF ERRORLEVEL 0 (
 )
 vagrant destroy
 set FIRST_RUN=true
-vagrant up --no-provision
-vagrant ssh -c 'bash /vagrant/snapshot.sh'
-vagrant ssh -c 'sudo apt update'
-vagrant ssh -c 'sudo DEBIAN_FRONTEND=noninteractive apt upgrade -y'
-vagrant ssh -c 'sudo DEBIAN_FRONTEND=noninteractive apt install -y build-essential linux-headers-amd64 linux-image-amd64 python-pip'
-vagrant halt
+vagrant up --no-provision || goto :error
+vagrant ssh -c 'bash /vagrant/snapshot.sh' || goto :error
+vagrant ssh -c 'sudo apt update' || goto :error
+vagrant ssh -c 'sudo DEBIAN_FRONTEND=noninteractive apt upgrade -y' || goto :error
+vagrant ssh -c 'sudo DEBIAN_FRONTEND=noninteractive apt install -y build-essential linux-headers-amd64 linux-image-amd64 python-pip' || goto :error
+vagrant halt || goto :error
 set FIRST_RUN=false
 vagrant up
-vagrant halt || exit /b
-vagrant up
+vagrant reload || goto :error
+vagrant reload || goto :error
+goto :EOF
+:error
+exit /b %errorlevel%

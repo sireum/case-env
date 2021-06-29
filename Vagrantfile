@@ -3,18 +3,9 @@
 
 Vagrant.configure("2") do |config|
 
-  required_plugins = %w( vagrant-vbguest )
-  _retry = false
-  required_plugins.each do |plugin|
-    unless Vagrant.has_plugin? plugin
-      system "vagrant plugin install #{plugin}"
-      _retry=true
-    end
-  end
-
-  if (_retry)
-    exec "vagrant " + ARGV.join(' ')
-  end
+  ENV['VAGRANT_INSTALL_LOCAL_PLUGINS'] = "true"
+  
+  config.vagrant.plugins = "vagrant-vbguest"
 
   config.vm.box = "bento/debian-10"
   config.vm.box_version = "202007.17.0"
