@@ -5,14 +5,14 @@ set -Eeuxo pipefail
 
 : "${BASE_DIR:=$HOME/CASE}"
 : "${SIREUM_INIT_V:=20210628.1601}"
-: "${SIREUM_V:=345fad70ee93e55a5b34031f7eada88cea45cd1e}"
-: "${AGREE_V=agree_2.7.0}"
-: "${BRIEFCASE_V=briefcase_0.5.1}"
-: "${ECLIPSE_V=2020-06}"
-: "${HAMR_V=CASE-Tool-Assessment-4}"
-: "${OSATE_V=2.9.0-vfinal}"
-: "${RESOLUTE_V=resolute_2.7.1}"
-: "${FMIDE_V=latest}" # or fixed
+: "${SIREUM_V:=6352dc76d9a6bbed16c44bfb9b35df5941a68c2d}"
+: "${AGREE_V:=agree_2.7.0}"
+: "${BRIEFCASE_V:=briefcase_0.5.1}"
+: "${ECLIPSE_V:=2020-06}"
+: "${HAMR_V:=CASE-Tool-Assessment-4}"
+: "${OSATE_V:=2.9.0-vfinal}"
+: "${RESOLUTE_V:=resolute_2.7.1}"
+: "${FMIDE_V:=latest}" # or fixed
 
 export DEBIAN_FRONTEND=noninteractive
 export SIREUM_HOME=$BASE_DIR/Sireum
@@ -58,8 +58,10 @@ as_root apt-get update
 as_root apt install -y git
 
 
-# seL4+friends (comment the next line to skip seL4 env installation)
-bash $HOME/bin/sel4.sh
+# seL4
+if [ -z ${NO_SEL4} ]; then
+  bash $HOME/bin/sel4.sh
+fi
 
 echo 'en_US.UTF-8 UTF-8' | as_root tee /etc/locale.gen > /dev/null
 as_root dpkg-reconfigure --frontend=noninteractive locales
@@ -76,13 +78,26 @@ echo "export PATH=\$PATH:\$JAVA_HOME/bin:\$SIREUM_HOME/bin" >> "$HOME/.bashrc"
 
 
 # FMIDE
-bash $SIREUM_HOME/bin/install/fmide.cmd --agree $AGREE_V --briefcase $BRIEFCASE_V --eclipse $ECLIPSE_V --hamr $HAMR_V --osate $OSATE_V --resolute $RESOLUTE_V $FMIDE_V
-echo "export PATH=\$PATH:\${SIREUM_HOME}/bin/linux/fmide" >> "$HOME/.bashrc"
+if [[ -z "${NO_FMIDE}" ]]; then
+  bash $SIREUM_HOME/bin/install/fmide.cmd --agree $AGREE_V --briefcase $BRIEFCASE_V --eclipse $ECLIPSE_V --hamr $HAMR_V --osate $OSATE_V --resolute $RESOLUTE_V $FMIDE_V
+  echo "export PATH=\$PATH:\${SIREUM_HOME}/bin/linux/fmide" >> "$HOME/.bashrc"
+fi
 
 
-# HAMR Examples
-bash $HOME/bin/hamr-examples.sh
+# Examples
+if [[ -z "${NO_EXAMPLES}" ]]; then
+  bash $HOME/bin/examples.sh
+fi
 
-# BriefCASE Examples
-bash $HOME/bin/transform-examples.sh
-bash $HOME/bin/uav-example.sh
+
+# CLion
+if [[ ! -z "${WITH_CLION}" ]]; then
+  bash $SIREUM_HOME/bin/install/clion.cmd
+fi
+
+
+# CompCert
+if [[ ! -z "${WITH_COMPCERT}" ]]; then
+  as_root apt install -y unzip zip libgmp-dev
+  bash $SIREUM_HOME/bin/install/compcert.cmd
+fi

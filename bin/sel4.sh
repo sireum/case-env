@@ -35,7 +35,9 @@ echo "export PATH=\$PATH:$BASE_DIR/camkes/build/capDL-tool" >> "$HOME/.bashrc"
 bash $HOME/bin/sel4-cache.sh $SEL4_V
 bash $HOME/bin/camkes-cache.sh $CAMKES_V
 
-bash $SEL4_SCRIPTS/cakeml.sh
+if [[ -z "${NO_CAKEML}" ]]; then
+  bash $SEL4_SCRIPTS/cakeml.sh
+fi
 
 git config --global --unset user.name $GIT_USER
 git config --global --unset user.email $GIT_EMAIL

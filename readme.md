@@ -9,7 +9,7 @@ This folder contains scripts and Vagrantfile to setup environment for CASE tools
 * [by automatically provisioning a Linux VM using VirtualBox and Vagrant](#setting-up-a-virtualbox-vm-using-vagrant).
 
 Once setup (instructions below), all CASE tools/artifacts are installed in ``~/CASE`` 
-(can be overriden by specifying ``BASE_DIR`` env var; pease see [case-setup.sh](case-setup.sh)).
+(can be overriden by specifying ``BASE_DIR`` env var; please see [Vagrantfile](Vagrantfile) for other environment variables that can be overriden).
 In the Vagrant provisioned VM, additional tools and scripts are installed in ``~/bin``.  To run FMIDE:
 
 ```bash

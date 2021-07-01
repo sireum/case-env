@@ -32,7 +32,48 @@ Vagrant.configure("2") do |config|
 
   config.vm.provision "file", source: "vm-version.txt", destination: "vm-version.txt"
 
-  config.vm.provision "shell", privileged: false, inline: <<-SHELL
+  config.vm.provision "shell", privileged: false, env: {
+      "BASE_DIR" => ENV['BASE_DIR'],
+      "SIREUM_INIT_V" => ENV['SIREUM_INIT_V'],
+      "SIREUM_V" => ENV['SIREUM_V'],
+      "AGREE_V" => ENV['AGREE_V'],
+      "BRIEFCASE_V" => ENV['BRIEFCASE_V'],
+      "ECLIPSE_V" => ENV['ECLIPSE_V'],
+      "HAMR_V" => ENV['HAMR_V'],
+      "OSATE_V" => ENV['OSATE_V'],
+      "RESOLUTE_V" => ENV['RESOLUTE_V'],
+      "FMIDE_V" => ENV['FMIDE_V'],
+      "SEL4_SCRIPTS_V" => ENV['SEL4_SCRIPTS_V'],
+      "SEL4_V" => ENV['SEL4_V'],
+      "CAMKES_V" => ENV['CAMKES_V'],
+      "NO_SEL4" => ENV['NO_SEL4'],
+      "NO_CAKEML" => ENV['NO_CAKEML'],
+      "NO_FMIDE" => ENV['NO_FMIDE'],
+      "NO_EXAMPLES" => ENV['NO_EXAMPLES'],
+      "WITH_SIREUM_IVE" => ENV['WITH_SIREUM_IVE'],
+      "WITH_CLION" => ENV['WITH_CLION'],
+      "WITH_COMPCERT" => ENV['WITH_COMPCERT'],
+  }, inline: <<-SHELL
+    echo "BASE_DIR=$BASE_DIR"
+    echo "SIREUM_INIT_V=$SIREUM_INIT_V"
+    echo "SIREUM_V=$SIREUM_V"
+    echo "AGREE_V=$AGREE_V"
+    echo "BRIEFCASE_V=$BRIEFCASE_V"
+    echo "ECLIPSE_V=$ECLIPSE_V"
+    echo "HAMR_V=$HAMR_V"
+    echo "OSATE_V=$OSATE_V"
+    echo "RESOLUTE_V=$RESOLUTE_V"
+    echo "FMIDE_V=$FMIDE_V"
+    echo "SEL4_SCRIPTS_V=$SEL4_SCRIPTS_V"
+    echo "SEL4_V=$SEL4_V"
+    echo "CAMKES_V=$CAMKES_V"
+    echo "NO_SEL4=$NO_SEL4"
+    echo "NO_CAKEML=$NO_CAKEML"
+    echo "NO_FMIDE=$NO_FMIDE"
+    echo "NO_EXAMPLES=$NO_EXAMPLES"
+    echo "WITH_SIREUM_IVE=$WITH_SIREUM_IVE"
+    echo "WITH_CLION=$WITH_CLION"
+    echo "WITH_COMPCERT=$WITH_COMPCERT"
     bash case-setup.sh || exit -1
     rm -R case-setup.sh addons
   SHELL
