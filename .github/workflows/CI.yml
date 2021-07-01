@@ -17,5 +17,5 @@ jobs:
 
     - name: Build VM
       run: |
-        NO_SEL4=true NO_EXAMPLES=true WITH_COMPCERT=true bash setup.sh
+        WITH_SIREUM_IVE=true WITH_CLION=true WITH_COMPCERT=true bash setup.sh
         vagrant halt

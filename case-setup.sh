@@ -98,6 +98,6 @@ fi
 
 # CompCert
 if [[ ! -z "${WITH_COMPCERT}" ]]; then
-  as_root apt install -y unzip
+  as_root apt install -y unzip zip libgmp-dev
   bash $SIREUM_HOME/bin/install/compcert.cmd
 fi
