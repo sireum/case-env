@@ -3,19 +3,29 @@ name: CI
 on: [push]
 
 jobs:
+
   setup:
     runs-on: macos-10.15
-
     steps:
     - uses: actions/checkout@v2
-
     - name: Show Vagrant version
       run: vagrant --version
-
     - name: Show VirtualBox version
       run: VBoxManage --version
-
     - name: Build VM
       run: |
         WITH_SIREUM_IVE=true WITH_CLION=true WITH_COMPCERT=true bash setup.sh
+        vagrant halt
+
+  setup-no-seL4:
+    runs-on: macos-10.15
+    steps:
+    - uses: actions/checkout@v2
+    - name: Show Vagrant version
+      run: vagrant --version
+    - name: Show VirtualBox version
+      run: VBoxManage --version
+    - name: Build VM
+      run: |
+        SIREUM_INIT_V=latest SIREUM_V=master NO_SEL4=true WITH_SIREUM_IVE=true WITH_CLION=true WITH_COMPCERT=true bash setup.sh
         vagrant halt

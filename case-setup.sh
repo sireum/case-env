@@ -5,7 +5,7 @@ set -Eeuxo pipefail
 
 : "${BASE_DIR:=$HOME/CASE}"
 : "${SIREUM_INIT_V:=20210628.1601}"
-: "${SIREUM_V:=6352dc76d9a6bbed16c44bfb9b35df5941a68c2d}"
+: "${SIREUM_V:=6e598e468e663bb983b2b9ab10e56afbd592403d}"
 : "${AGREE_V:=agree_2.7.0}"
 : "${BRIEFCASE_V:=briefcase_0.5.1}"
 : "${ECLIPSE_V:=2020-06}"
@@ -59,7 +59,7 @@ as_root apt install -y git
 
 
 # seL4
-if [ -z ${NO_SEL4} ]; then
+if [[ -z "${NO_SEL4}" ]]; then
   bash $HOME/bin/sel4.sh
 fi
 
