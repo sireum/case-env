@@ -8,7 +8,9 @@ Vagrant.configure("2") do |config|
   config.vagrant.plugins = "vagrant-vbguest"
 
   config.vm.box = "bento/debian-10"
-  config.vm.box_version = "202007.17.0"
+  unless ENV['NO_SEL4']
+    config.vm.box_version = "202007.17.0"
+  end
   config.vm.provider :virtualbox do |vb|
     vb.cpus = 4
     vb.memory = 8092
@@ -82,8 +84,10 @@ Vagrant.configure("2") do |config|
     export DEBIAN_FRONTEND=noninteractive
     adduser vagrant vboxsf
     echo "Installing xfce-desktop ..."
-    tasksel install xfce-desktop
-    #apt install -y materia-gtk-theme papirus-icon-theme
+    apt install -y task-xfce-desktop materia-gtk-theme papirus-icon-theme
+    systemctl set-default graphical.target
+    sed -i 's/Xfce/Materia-dark-compact/' /etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xsettings.xml
+    sed -i 's/Tango/Papirus-Dark/' /etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xsettings.xml
   SHELL
 
 end
