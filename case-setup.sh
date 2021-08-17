@@ -4,12 +4,12 @@
 set -Eeuxo pipefail
 
 : "${BASE_DIR:=$HOME/CASE}"
-: "${SIREUM_INIT_V:=20210628.1601}"
-: "${SIREUM_V:=6e598e468e663bb983b2b9ab10e56afbd592403d}"
+: "${SIREUM_INIT_V:=20210817.0941}"
+: "${SIREUM_V:=882b6b5ff5c16196b792654c5183825ba3842e8f}"
 : "${AGREE_V:=agree_2.7.0}"
 : "${BRIEFCASE_V:=briefcase_0.5.1}"
 : "${ECLIPSE_V:=2020-06}"
-: "${HAMR_V:=CASE-Tool-Assessment-4}"
+: "${HAMR_V:=1.0.2107141642.88909b5}"
 : "${OSATE_V:=2.9.0-vfinal}"
 : "${RESOLUTE_V:=resolute_2.7.1}"
 : "${FMIDE_V:=latest}" # or fixed
