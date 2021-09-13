@@ -21,6 +21,8 @@ git clone https://github.com/SEL4PROJ/seL4-CAmkES-L4v-dockerfiles
 SEL4_SCRIPTS=$BASE_DIR/seL4-CAmkES-L4v-dockerfiles/scripts
 cd $SEL4_SCRIPTS
 git checkout $SEL4_SCRIPTS_V
+sed -i 's/setuptools/"setuptools<58.0"/g' base_tools.sh
+sed -i 's/setuptools/"setuptools<58.0"/g' sel4.sh
 cd $BASE_DIR
 
 bash $SEL4_SCRIPTS/base_tools.sh
