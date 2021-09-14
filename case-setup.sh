@@ -5,11 +5,11 @@ set -Eeuxo pipefail
 
 : "${BASE_DIR:=$HOME/CASE}"
 : "${SIREUM_INIT_V:=20210830.1350}"
-: "${SIREUM_V:=ab8f3db7f651de9ff8f22849630186e4364613a9}"
+: "${SIREUM_V:=94bc055c75588f43b2771117e2a7f7de194f4f25}"
 : "${AGREE_V:=agree_2.7.0}"
 : "${BRIEFCASE_V:=briefcase_0.5.1}"
 : "${ECLIPSE_V:=2020-06}"
-: "${HAMR_V:=1.0.2107141642.88909b5}"
+: "${HAMR_V:=1.0.2109141821.effe14b}"
 : "${OSATE_V:=2.9.0-vfinal}"
 : "${RESOLUTE_V:=resolute_2.7.1}"
 : "${FMIDE_V:=latest}" # or fixed
