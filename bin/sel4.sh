@@ -34,8 +34,32 @@ bash $SEL4_SCRIPTS/sel4.sh
 bash $SEL4_SCRIPTS/camkes.sh
 echo "export PATH=\$PATH:$BASE_DIR/camkes/build/capDL-tool" >> "$HOME/.bashrc"
 
-bash $HOME/bin/sel4-cache.sh $SEL4_V
-bash $HOME/bin/camkes-cache.sh $CAMKES_V
+# seL4 cache
+rm -fR ~/.sel4_cache $BASE_DIR/sel4test
+mkdir -p ~/.sel4_cache
+try_nonroot_first mkdir -p "$BASE_DIR/sel4test" || chown_dir_to_user "$BASE_DIR/sel4test"
+cd "$BASE_DIR/sel4test"
+repo init -u "https://github.com/seL4/sel4test-manifest.git" --depth=1 -b $SEL4_V
+repo sync -j 4
+mkdir build-x86_64
+mkdir build-odroidxu4
+cd build-x86_64
+../init-build.sh -DPLATFORM=x86_64
+ninja
+cd ../build-odroidxu4
+../init-build.sh -DPLATFORM=exynos5422 -DAARCH32=1
+ninja
+
+# CAmkES cache
+rm -fR $BASE_DIR/camkes
+try_nonroot_first mkdir -p "$BASE_DIR/camkes" || chown_dir_to_user "$BASE_DIR/camkes"
+cd "$BASE_DIR/camkes"
+repo init -u "https://github.com/seL4/camkes-manifest.git" --depth=1 -b $CAMKES_V
+repo sync -j 4
+mkdir build
+cd build
+../init-build.sh
+ninja
 
 if [[ -z "${NO_CAKEML}" ]]; then
   bash $SEL4_SCRIPTS/cakeml.sh
