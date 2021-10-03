@@ -5,7 +5,7 @@ set -Eeuxo pipefail
 
 : "${BASE_DIR:=$HOME/CASE}"
 : "${SIREUM_INIT_V:=20210916.0952}"
-: "${SIREUM_V:=abd2495d1fe7030078332eb9ffabad88a63317bd}"
+: "${SIREUM_V:=379f0ac2256951087b2eba5991a9bfc8a4a8c530}"
 : "${AGREE_V:=agree_2.7.0}"
 : "${BRIEFCASE_V:=briefcase_0.5.1}"
 : "${ECLIPSE_V:=2020-06}"
