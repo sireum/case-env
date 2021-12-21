@@ -32,11 +32,11 @@ If you are interested to also setup FMIDE and HAMR directly in your machine runn
 ### Steps
 
 Run the following (and subsequent commands) in your local repo's ``case-env`` directory 
-(or download the folder [here](https://downgit.github.io/#/home?url=https://github.com/loonwerks/CASE/tree/master/TA5/case-env)):
+(or download the folder [here](https://downgit.github.io/#/home?url=https://github.com/sireum/case-env)):
 
 ```bash
-bash snapshot.sh    # required, unless the NO_SEL4 env var is set to disable automatic seL4 installation
-bash case-setup.sh
+bash snapshot.sh
+NO_SEL4_BOX=true bash case-setup.sh
 ```
 
 See [Post Setup](#post-setup) below for additional instructions (note: replace ``~/bin`` with the path to the ``bin`` directory

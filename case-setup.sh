@@ -1,5 +1,5 @@
 #!/bin/bash
-# Requirement: Debian 10.4 (buster)
+# Requirement: Debian 11.1 (bullseye)
 
 set -Eeuxo pipefail
 
@@ -60,7 +60,9 @@ as_root apt install -y git
 
 # seL4
 if [[ -z "${NO_SEL4}" ]]; then
-  bash $HOME/bin/sel4.sh
+  if [[ ! -z "${NO_SEL4_BOX}" ]]; then
+    bash $HOME/bin/sel4.sh
+  fi
 fi
 
 echo 'en_US.UTF-8 UTF-8' | as_root tee /etc/locale.gen > /dev/null

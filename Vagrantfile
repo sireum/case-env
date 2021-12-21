@@ -7,13 +7,22 @@ Vagrant.configure("2") do |config|
   
   config.vagrant.plugins = "vagrant-vbguest"
 
-  config.vm.box = "bento/debian-11"
-  unless ENV['NO_SEL4']
-    config.vm.box_version = "202110.25.0"
+  if ENV['NO_SEL4_BOX'] then
+    config.vm.box = "bento/debian-11"
+    unless ENV['NO_SEL4'] then
+      config.vm.box_version = "202110.25.0"
+    end
+  else
+    if ENV['NO_SEL4'] then
+      config.vm.box = "bento/debian-11"
+    else
+      config.vm.box = "sireum/seL4"
+    end
   end
+
   config.vm.provider :virtualbox do |vb|
     vb.cpus = 4
-    vb.memory = 8092
+    vb.memory = 8192
     vb.gui = true
     vb.linked_clone = false
     vb.customize ["modifyvm", :id, "--vram", "64"]
@@ -30,7 +39,16 @@ Vagrant.configure("2") do |config|
 
   config.vm.provision "file", source: "addons", destination: "addons"
 
-  config.vm.provision "file", source: "bin", destination: "bin"
+  config.vm.provision "file", source: "bin", destination: "bin.new"
+
+  config.vm.provision "shell", inline: <<-SHELL
+    if [ -d bin ]; then
+      mv bin.new/* bin
+      rm -fR bin.new
+    else 
+      mv bin.new bin
+    fi
+  SHELL
 
   config.vm.provision "file", source: "vm-version.txt", destination: "vm-version.txt"
 
@@ -48,6 +66,7 @@ Vagrant.configure("2") do |config|
       "SEL4_SCRIPTS_V" => ENV['SEL4_SCRIPTS_V'],
       "SEL4_V" => ENV['SEL4_V'],
       "CAMKES_V" => ENV['CAMKES_V'],
+      "NO_SEL4_BOX" => ENV['NO_SEL4_BOX'],
       "NO_SEL4" => ENV['NO_SEL4'],
       "NO_CAKEML" => ENV['NO_CAKEML'],
       "NO_FMIDE" => ENV['NO_FMIDE'],
@@ -69,6 +88,7 @@ Vagrant.configure("2") do |config|
     echo "SEL4_SCRIPTS_V=$SEL4_SCRIPTS_V"
     echo "SEL4_V=$SEL4_V"
     echo "CAMKES_V=$CAMKES_V"
+    echo "NO_SEL4_BOX=$NO_SEL4_BOX"
     echo "NO_SEL4=$NO_SEL4"
     echo "NO_CAKEML=$NO_CAKEML"
     echo "NO_FMIDE=$NO_FMIDE"
