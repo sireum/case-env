@@ -18,3 +18,4 @@ fi
 git submodule update --init --recursive
 bin/build.cmd $BUILD_ARGS
 bin/install/ffmpeg-libs.cmd
+bin/install/projector-server.cmd
