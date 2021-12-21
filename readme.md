@@ -27,7 +27,7 @@ If you are interested to also setup FMIDE and HAMR directly in your machine runn
 
 ### Requirement
 
-* Debian 10.4 [[.jigdo](https://cdimage.debian.org/mirror/cdimage/archive/10.4.0/amd64/jigdo-cd/debian-10.4.0-amd64-xfce-CD-1.jigdo)]
+* Debian 11.1 [[.jigdo](https://cdimage.debian.org/mirror/cdimage/archive/11.1.0/amd64/iso-dvd/debian-11.1.0-amd64-DVD-1.iso)]
 
 ### Steps
 
@@ -55,7 +55,7 @@ in your local repo/folder ``case-env``).
 
 By default, the VM is configured with 4 cores, 8GB RAM, and 64MB video memory.
 These settings can be changed in [Vagrantfile](Vagrantfile) or in the built VM after provisioning.
-The VM disk size is derived from the base box [bento/debian-10](https://app.vagrantup.com/bento/boxes/debian-10), which is 64GB.
+The VM disk size is derived from the base box [bento/debian-11](https://app.vagrantup.com/bento/boxes/debian-11), which is 64GB.
 
 ### Setup
 

@@ -7,9 +7,9 @@ Vagrant.configure("2") do |config|
   
   config.vagrant.plugins = "vagrant-vbguest"
 
-  config.vm.box = "bento/debian-10"
+  config.vm.box = "bento/debian-11"
   unless ENV['NO_SEL4']
-    config.vm.box_version = "202007.17.0"
+    config.vm.box_version = "202110.25.0"
   end
   config.vm.provider :virtualbox do |vb|
     vb.cpus = 4
