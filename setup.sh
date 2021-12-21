@@ -8,10 +8,8 @@ vagrant destroy || true
 vagrant box update || true
 export FIRST_RUN='true'
 vagrant up --no-provision
-if [[ ! -z "${NO_SEL4_BOX}" ]]; then
-  if [[ -z "${NO_SEL4}" ]]; then
-    vagrant ssh -c 'bash /vagrant/snapshot.sh'
-  fi
+if [[ -z "${NO_SEL4}" ]]; then
+  vagrant ssh -c 'bash /vagrant/snapshot.sh'
 fi
 vagrant ssh -c 'sudo apt-get update'
 vagrant ssh -c 'sudo DEBIAN_FRONTEND=noninteractive apt upgrade -y'
