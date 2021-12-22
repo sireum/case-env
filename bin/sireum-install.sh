@@ -18,4 +18,6 @@ fi
 git submodule update --init --recursive
 bin/build.cmd $BUILD_ARGS
 bin/install/ffmpeg-libs.cmd
-bin/install/projector-server.cmd
+if [[ ! -z "${WITH_SIREUM_IVE}" ]]; then
+  bin/install/projector-server.cmd
+fi
