@@ -27,7 +27,7 @@ If you are interested to also setup FMIDE and HAMR directly in your machine runn
 
 ### Requirement
 
-* Debian 11.1 [[.jigdo](https://cdimage.debian.org/mirror/cdimage/archive/11.1.0/amd64/iso-dvd/debian-11.1.0-amd64-DVD-1.iso)]
+* Debian 11.1 [[.iso](https://cdimage.debian.org/mirror/cdimage/archive/11.1.0/amd64/iso-dvd/debian-11.1.0-amd64-DVD-1.iso)]
 
 ### Steps
 

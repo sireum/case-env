@@ -7,7 +7,9 @@ vagrant box update
 set FIRST_RUN=true
 vagrant up --no-provision || goto :error
 if not defined NO_SEL4 (
-  vagrant ssh -c 'bash /vagrant/snapshot.sh' || goto :error
+  if defined NO_SEL4_BOX (
+    vagrant ssh -c 'bash /vagrant/snapshot.sh' || goto :error
+  )
 )
 vagrant ssh -c 'sudo apt update' || goto :error
 vagrant ssh -c 'sudo DEBIAN_FRONTEND=noninteractive apt upgrade -y' || goto :error

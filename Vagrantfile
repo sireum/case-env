@@ -16,7 +16,8 @@ Vagrant.configure("2") do |config|
     if ENV['NO_SEL4'] then
       config.vm.box = "bento/debian-11"
     else
-      config.vm.box = "sireum/seL4"
+      config.vm.box = "sireum/desktop-seL4"
+      config.vm.box_version = "20221208.0.e9079c"
     end
   end
 
@@ -100,14 +101,16 @@ Vagrant.configure("2") do |config|
     rm -R case-setup.sh addons
   SHELL
 
-  config.vm.provision "shell", inline: <<-SHELL
-    export DEBIAN_FRONTEND=noninteractive
-    adduser vagrant vboxsf
-    echo "Installing xfce-desktop ..."
-    apt install -y task-xfce-desktop materia-gtk-theme papirus-icon-theme
-    systemctl set-default graphical.target
-    sed -i 's/Xfce/Materia-dark-compact/' /etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xsettings.xml
-    sed -i 's/Tango/Papirus-Dark/' /etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xsettings.xml
-  SHELL
+  unless ENV['NO_SEL4_BOX'] then
+    config.vm.provision "shell", inline: <<-SHELL
+      export DEBIAN_FRONTEND=noninteractive
+      adduser vagrant vboxsf
+      echo "Installing xfce-desktop ..."
+      apt install -y task-xfce-desktop materia-gtk-theme papirus-icon-theme
+      systemctl set-default graphical.target
+      sed -i 's/Xfce/Materia-dark-compact/' /etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xsettings.xml
+      sed -i 's/Tango/Papirus-Dark/' /etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xsettings.xml
+    SHELL
+  end
 
 end
