@@ -17,7 +17,7 @@ Vagrant.configure("2") do |config|
       config.vm.box = "bento/debian-11"
     else
       config.vm.box = "sireum/desktop-seL4"
-      config.vm.box_version = "20221208.0.e9079c"
+      config.vm.box_version = "20221208.1.e9079c"
     end
   end
 
