@@ -1,6 +1,7 @@
 # CASE Environment Setup
 
 [![Actions Status](https://github.com/sireum/case-env/workflows/CI/badge.svg)](https://github.com/sireum/case-env/actions/workflows/CI.yml)
+[![Download!](http://files.sireum.org/case-env-build.png)](https://bit.ly/case-env)
 
 This folder contains scripts and Vagrantfile to setup environment for CASE tools, either:
 
