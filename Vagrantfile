@@ -99,6 +99,7 @@ Vagrant.configure("2") do |config|
     echo "WITH_COMPCERT=$WITH_COMPCERT"
     bash case-setup.sh || exit -1
     rm -R case-setup.sh addons
+    sudo $HOME/CASE/Sireum/bin/slang-run.sh $HOME/bin/hosts.sc
   SHELL
 
   unless ENV['NO_SEL4_BOX'] then
