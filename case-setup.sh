@@ -9,7 +9,7 @@ set -Eeuxo pipefail
 : "${AGREE_V:=agree_2.7.0}"
 : "${BRIEFCASE_V:=briefcase_0.5.1}"
 : "${ECLIPSE_V:=2020-06}"
-: "${HAMR_V:=1.0.2109141821.effe14b}"
+: "${HAMR_V:=1.2022.01051723.29d9922}"
 : "${OSATE_V:=2.9.0-vfinal}"
 : "${RESOLUTE_V:=resolute_2.7.1}"
 : "${FMIDE_V:=latest}" # or fixed
