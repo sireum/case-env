@@ -5,13 +5,14 @@ set -Eeuxo pipefail
 
 : "${BASE_DIR:=$HOME/CASE}"
 : "${SIREUM_INIT_V:=20211209.0919}"
-: "${SIREUM_V:=29d99228b510b920908f8f71428ef07883827f6b}"
-: "${AGREE_V:=agree_2.7.0}"
-: "${BRIEFCASE_V:=briefcase_0.5.1}"
-: "${ECLIPSE_V:=2020-06}"
+: "${SIREUM_V:=d9f6de056e52566a4be092aa8371daf8bb5f99b5}"
+: "${AGREE_V:=agree_2.8.0}"
+: "${BRIEFCASE_V:=briefcase_0.7.0}"
+: "${ECLIPSE_V:=2021-03}"
+: "${AWAS_V:=1.2022.01051723.29d9922}"
 : "${HAMR_V:=1.2022.01051723.29d9922}"
-: "${OSATE_V:=2.9.0-vfinal}"
-: "${RESOLUTE_V:=resolute_2.7.1}"
+: "${OSATE_V:=2.10.2-vfinal}"
+: "${RESOLUTE_V:=resolute_3.0.0}"
 : "${FMIDE_V:=latest}" # or fixed
 
 export DEBIAN_FRONTEND=noninteractive
@@ -81,7 +82,7 @@ echo "export PATH=\$PATH:\$JAVA_HOME/bin:\$SIREUM_HOME/bin" >> "$HOME/.bashrc"
 
 # FMIDE
 if [[ -z "${NO_FMIDE}" ]]; then
-  bash $SIREUM_HOME/bin/install/fmide.cmd --agree $AGREE_V --briefcase $BRIEFCASE_V --eclipse $ECLIPSE_V --hamr $HAMR_V --osate $OSATE_V --resolute $RESOLUTE_V $FMIDE_V
+  bash $SIREUM_HOME/bin/install/fmide.cmd --agree $AGREE_V --briefcase $BRIEFCASE_V --eclipse $ECLIPSE_V --hamr $HAMR_V --awas $AWAS_V --osate $OSATE_V --resolute $RESOLUTE_V $FMIDE_V
   echo "export PATH=\$PATH:\${SIREUM_HOME}/bin/linux/fmide" >> "$HOME/.bashrc"
 fi
 
